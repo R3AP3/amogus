@@ -30,9 +30,9 @@ while True:
 
     regex = r"/100x100bb.jpg"
 
-    unc_png = "/100000x100000-999.png"
-    unc_jpg = "/100000x100000-999.jpg"
-    cp_webp = "/100000x100000bb.webp"
+    unc_png = "/100000x100000-100.png"
+    unc_jpg = "/100000x100000-100.jpg"
+    cp_webp = "/100000x100000-100.webp"
 
     png__url = re.sub(regex, unc_png, art_url, 1)
     jpg__url = re.sub(regex, unc_jpg, art_url, 1)
