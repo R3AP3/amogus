@@ -37,13 +37,16 @@ while True:
     webp_url = re.sub(regex, cp_webp, art_url, 1)
 
     #path = '/home/$USER/CoverArtworks/'
+    img_dir = os.path.join('C:\\','Users',os.getlogin(), 'Pictures', 'CoverArtworks')
     path = os.path.join('C:\\','Users',os.getlogin(), 'Pictures', 'CoverArtworks', album_name)
     
     print(f"Saving to: {path}\n")
     try:
         os.mkdir(f'{path}')
-    except:
-        print("File Already Downloaded\n\nOverwriting...\n")
+    except
+        print('Missing Directory... Creating it rn...\n')
+        os.mkdir(f'{img_dir}')
+        os.mkdir(f'{path}')
     png_response = requests.get(png__url, stream=True)
     with open(f'{path}\\{album_name}.png', 'wb') as out_file:
         shutil.copyfileobj(png_response.raw, out_file)
