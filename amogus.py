@@ -38,23 +38,26 @@ while True:
     jpg__url = re.sub(regex, unc_jpg, art_url, 1)
     webp_url = re.sub(regex, cp_webp, art_url, 1)
 
+    path = f'C:\\Users\\admin\\Pictures\\CoverArtworks\\{album_name}\\'
+    print(f"Saving to: {path}\n")
+    os.mkdir(f'{path}')
     png_response = requests.get(png__url, stream=True)
-    with open(f'{album_name}.png', 'wb') as out_file:
+    with open(f'{path}\\{album_name}.png', 'wb') as out_file:
         shutil.copyfileobj(png_response.raw, out_file)
     del png_response
-    print("Uncompressed     PNG     Done")
+    print("Best Quality     PNG     Done")
 
     jpg_res = requests.get(jpg__url, stream=True)
-    with open(f'{album_name}.jpg', 'wb') as out_file:
+    with open(f'{path}\\{album_name}.jpg', 'wb') as out_file:
         shutil.copyfileobj(jpg_res.raw, out_file)
     del jpg_res
-    print("Uncompressed     JPG     Done")
+    print("Best Quality     JPG     Done")
 
     webp_res = requests.get(webp_url, stream=True)
-    with open(f'{album_name}.webp', 'wb') as out_file:
+    with open(f'{path}\\{album_name}.webp', 'wb') as out_file:
         shutil.copyfileobj(webp_res.raw, out_file)
     del webp_res
-    print("Compressed       WEBP    Done")
+    print("Best Quality     WEBP    Done")
 
     print("\nSuccessfully Downloaded\n")
     time.sleep(3.0)
