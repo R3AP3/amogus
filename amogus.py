@@ -2,18 +2,16 @@ from urllib.parse import unquote, urlparse
 from pathlib import PurePosixPath
 import requests, re, os, shutil, time
 os.system('cls' if os.name == 'nt' else 'clear')
-logo="""
-  __ _ _ __ ___   ___   __ _ _   _ ___ 
- / _` | '_ ` _ \ / _ \ / _` | | | / __|
-| (_| | | | | | | (_) | (_| | |_| \__ \ 
- \__,_|_| |_| |_|\___/ \__, |\__,_|___/
-Repo:                   __/ |Ver: 0.0.1
-github.com/R3AP3/amogus|___/           
-"""
+logo="\n  __ _ _ __ ___   ___   __ _ _   _ ___ \n / _` | '_ ` _ \ / _ \ / _` | | | / __|\n| (_| | | | | | | (_) | (_| | |_| \__ \ \n \__,_|_| |_| |_|\___/ \__, |\__,_|___/\nRepo:                   __/ |Ver: 0.0.1\ngithub.com/R3AP3/amogus|___/           \n                          "
 print(logo)
 while True:
     val = input("Apple Music URL: ")
-
+    if "sus" in val:
+        print("\n\n⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠋⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠛⠿⣿⣿⣿\n⣿⣿⣿⣿⣿⣿⠏⠀⢠⣦⡀⣤⣠⡄⢠⠦⡄⣠⠤⠀⣤⠀⡆⣤⣶⡀⠀⠈⠻⣿\n⣿⣿⣿⣿⣿⣿⠀⠀⠟⠻⠃⠏⠉⠇⠸⠶⠋⠻⠾⠇⠙⠒⠃⠘⠾⠃⠀⠀⢀⣿\n⣿⣿⣿⣿⣿⣿⣷⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣠⣴⣿⣿\n⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⠿⠷⣶⣶⣶⣶⣶⡆⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n⣿⣿⣿⣿⠟⠉⠀⠀⠒⠀⠀⠀⠀⠉⢻⣿⣿⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n⣿⣿⣿⣿⠀⠀⠀⠦⣀⣶⡶⠀⢤⣠⣤⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n⣿⣿⣿⣿⣷⣤⣀⡲⠶⣶⣤⣔⣀⣤⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n⣿⣿⣿⣿⣿⠿⠿⠃⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n⣿⣿⣿⠏⢀⠤⠄⠀⠀⢀⡈⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n⣿⣿⡟⠀⠸⠦⣠⠘⠁⢨⠃⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n⣿⣿⠃⠀⠑⠤⠤⠔⠚⢥⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n⣿⡿⠀⠀⠀⣀⣀⡀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n⣿⡇⠀⠀⣰⣿⣿⣿⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n⣿⣧⣀⡀⠉⣻⣿⣧⣤⣤⣤⣤⣽⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿")
+        time.sleep(2.0)
+        exit()
+    else:
+        pass
     parts = PurePosixPath(unquote(urlparse(val).path)).parts
     album_id = parts[4]
     region_code = parts[1]
@@ -40,7 +38,11 @@ while True:
 
     path = f'C:\\Users\\admin\\Pictures\\CoverArtworks\\{album_name}\\'
     print(f"Saving to: {path}\n")
-    os.mkdir(f'{path}')
+    #os.mkdir(f'{path}')
+    try:
+        os.mkdir(f'{path}')
+    except:
+        print("File Already Downloaded\n\nOverwriting...\n")
     png_response = requests.get(png__url, stream=True)
     with open(f'{path}\\{album_name}.png', 'wb') as out_file:
         shutil.copyfileobj(png_response.raw, out_file)
