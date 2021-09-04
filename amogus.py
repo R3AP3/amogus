@@ -3,7 +3,7 @@ from urllib.parse import unquote, urlparse
 from pathlib import PurePosixPath
 import requests, re, os, shutil, time
 os.system('cls' if os.name == 'nt' else 'clear')
-logo="\n  __ _ _ __ ___   ___   __ _ _   _ ___ \n / _` | '_ ` _ \ / _ \ / _` | | | / __|\n| (_| | | | | | | (_) | (_| | |_| \__ \ \n \__,_|_| |_| |_|\___/ \__, |\__,_|___/\nRepo:                   __/ |Ver: 0.0.4\ngithub.com/R3AP3/amogus|___/           \n                          "
+logo="\n  __ _ _ __ ___   ___   __ _ _   _ ___ \n / _` | '_ ` _ \ / _ \ / _` | | | / __|\n| (_| | | | | | | (_) | (_| | |_| \__ \ \n \__,_|_| |_| |_|\___/ \__, |\__,_|___/\nRepo:                   __/ |Ver: 0.0.5\ngithub.com/R3AP3/amogus|___/           \n                          "
 print(logo)
 while True:
     val = input("Apple Music URL: ")
