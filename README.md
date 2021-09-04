@@ -1,3 +1,5 @@
+# amogus.py will be back soon
+
 ![amogus_du_weisst_bescheid_bra](https://user-images.githubusercontent.com/89069925/132093406-b9529188-b632-46e2-b17c-49544eb52517.jpg)
 # amogus - Apple Music Hi-Res Artwork Fetcher
 
