@@ -24,7 +24,7 @@ python amogus.py
 ```
 You will then encounter the prompt that asks you for an apple music album URL.
 
-The Pictures get saved to a Directory named "CoverArtworks" in the Pictures Folder located in C:\Users\<Username>\Pictures or as a bookmark in Windows explorer.
+The Pictures get saved to a Directory named "CoverArtworks" in the Pictures Folder located in `C:\Users\<Username>\Pictures` or as a bookmark in Windows explorer.
 
 ## To-Do:
 - Choosing Folder to Download to
