@@ -43,7 +43,7 @@ while True:
     print(f"Saving to: {path}\n")
     try:
         os.mkdir(f'{path}')
-    except
+    except:
         print('Missing Directory... Creating it rn...\n')
         os.mkdir(f'{img_dir}')
         os.mkdir(f'{path}')
