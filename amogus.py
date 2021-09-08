@@ -45,7 +45,7 @@ while True:
     if(os.system == 'nt'):
         path = os.path.join('C:\\','Users',os.getlogin(), 'Pictures', 'CoverArtworks', album_name)
     else:
-        path = '/home/' + getpass.getuser() +'/CoverArtworks/' + album_name + '/'
+        path = '/home/' + os.getlogin() +'/CoverArtworks/' + album_name + '/'
 
     if(os.path.exists(path)):
         print("Path exists \n")
