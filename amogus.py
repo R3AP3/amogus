@@ -12,7 +12,7 @@ logo="""\33[31m
 | (_| | | | | | | (_) | (_| | |_| \__ \ 
  \__,_|_| |_| |_|\___/ \__, |\__,_|___/
 repository:             __/ |Ver: 0.0.8
-github.com/R3AP3/amogus|___/          \33[0m """
+github.com/R3AP3/amogus|___/           \33[0m"""
 
 def request_img(val):
     parts = PurePosixPath(unquote(urlparse(val).path)).parts
@@ -30,7 +30,7 @@ def request_img(val):
         copy_right = details["copyright"]
         release_date = details["releaseDate"]
         genre_name = details["primaryGenreName"]
-        
+
     meta_data = f"""
 Artist:         {artist_name} [{artist_id}]
 Album:          {album_name} [{collection_id}]
@@ -55,5 +55,10 @@ while True:
     val = input("\nApple Music URL: ")
     if 'http' in val:
         request_img(val)
+
+#added a way to exit the loop
+    elif val in [ 'exit','quit','Exit','QUIT' ]:
+        print('Exiting...')
+        exit()
     else:
         print("Wrong input")
