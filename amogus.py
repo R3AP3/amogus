@@ -6,13 +6,13 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 img_formats = ["png","jpg"]
 
-logo="""
+logo="""\33[31m
   __ _ _ __ ___   ___   __ _ _   _ ___ 
  / _` | '_ ` _ \ / _ \ / _` | | | / __|
 | (_| | | | | | | (_) | (_| | |_| \__ \ 
  \__,_|_| |_| |_|\___/ \__, |\__,_|___/
 repository:             __/ |Ver: 0.0.8
-github.com/R3AP3/amogus|___/           """
+github.com/R3AP3/amogus|___/          \33[0m """
 
 def request_img(val):
     parts = PurePosixPath(unquote(urlparse(val).path)).parts
