@@ -46,15 +46,21 @@ Genre:          {genre_name}
     for i in img_formats:
         image_url = f"/1x1sy-100.{i}"
         hq_image = re.sub(regex, image_url, art_url, 1)
-        naming_scheme = f'Covers/{artist_name} - {album_name} [{artist_id} - {collection_id}].{i}'
+        naming_scheme = basePath + '/' + f'{artist_name} - {album_name} [{artist_id} - {collection_id}].{i}'
         wget.download(hq_image, naming_scheme)
         print(f"  [{i}]  Done!")
+
+basePath = 'Covers'
 
 print(logo)
 while True:
     val = input("\nApple Music URL: ")
     if 'http' in val:
         request_img(val)
+
+#added a way to change path
+    elif val in ['path','config','Path','Config']:
+        basePath = input('Enter the path: ')
 
 #added a way to exit the loop
     elif val in [ 'exit','quit','Exit','QUIT' ]:
