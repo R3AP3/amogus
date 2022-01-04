@@ -17,21 +17,21 @@ pip install -r requirements.txt
 ```
 
 ## How to use:
+
+Check the `config.ini` and configure the path (or dont idk)
+
 Start the Script by running:
-```python
+```
 python amogus.py
 ```
 Then paste in an Apple Music URL
 
-The Pictures get saved to a Directory named "Covers" in the Folder where the Script is located.
-
-  
+The Pictures get saved to the specified path or if none is specified it downloads to the root folder of the script.
 
 ## To-Do:
 
-- Choosing Folder to Download to
+- suggest something i dont know
 
-- Print Resolution While Downloading
 ## Screenshot:
 ![grafik](https://user-images.githubusercontent.com/89069925/147856427-7653deeb-a6e8-46ae-9e4b-944897b45031.png)
 
