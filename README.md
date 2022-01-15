@@ -35,5 +35,7 @@ The Pictures get saved to the specified path or if none is specified it download
 ## Screenshot:
 ![grafik](https://user-images.githubusercontent.com/89069925/147856427-7653deeb-a6e8-46ae-9e4b-944897b45031.png)
 
-## Contact me:
-If you have ideas for the Script or encouter any bugs message me on [Telegram](https://t.me/WH4M1).
+## Issues:
+It seems like libmediainfo is causing some problems sometimes for some people. If you encounter any error copy your terminal output with the error and open an issue.
+
+If you encounter any other issues then feel free to open an Issue aswell
