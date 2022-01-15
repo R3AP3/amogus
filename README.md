@@ -15,7 +15,7 @@ Install Python, this should work on any version. Then install the requirements:
 ```python
 pip install -r requirements.txt
 ```
-
+Make sure you have some kind of installation of mediainfo. Otherwise libmediainfo will throw errors.
 ## How to use:
 
 Check the `config.ini` and configure the path (or dont idk)
@@ -38,4 +38,4 @@ The Pictures get saved to the specified path or if none is specified it download
 ## Issues:
 It seems like libmediainfo is causing some problems sometimes for some people. If you encounter any error copy your terminal output with the error and open an issue.
 
-If you encounter any other issues then feel free to open an Issue aswell
+If you encounter any other issues then feel free to open an Issue aswell.
