@@ -36,7 +36,7 @@ def parse_request(album_id, region_code):
 
 def download(url, filename):
     response = requests.get(url)
-    f = open("output/" + filename, "wb")
+    f = open(filename, "wb")
     f.write(response.content)
     f.close()
 
