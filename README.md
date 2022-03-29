@@ -1,6 +1,5 @@
 # Thats one sussy artwork Downloader
 ![amogus](https://user-images.githubusercontent.com/89069925/147856498-ce8049f1-1248-4f25-a425-da7dc9b404f7.jpg)
-Download the source images of Album Artworks from Apple Music
 
 ## Usage:
 Download the source images of Album Artworks from Apple Music
@@ -8,30 +7,6 @@ Download the source images of Album Artworks from Apple Music
 Apple Music URL: {link}
 ```
 
-## Installation
-You need MediaInfo-CLI tools installed and added to your path. Here are various Methods to do that on Various Operating systems:
-
-#### Debian, Ubuntu:
-```
-sudo apt-get install mediainfo
-```
-#### Arch Linux:
-```
-sudo pacman -S mediainfo
-```
-#### Mac OS (via Homebrew):
-```
-brew install media-info
-```
-#### Windows
-Install the mediainfo CLI via scoop.sh or add the binary from their official website to your path
-```
-scoop install mediainfo
-``` 
-#### Termux
-``` 
-pkg install mediainfo
-```
 ### Installing Amogus:
 
 ```bash
