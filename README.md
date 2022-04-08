@@ -3,8 +3,8 @@
 
 ## Usage:
 Download the source images of Album Artworks from Apple Music
-```
-Apple Music URL: {link}
+```py
+python amogus.py <link>
 ```
 
 ### Installing Amogus:
@@ -18,12 +18,13 @@ pip install -r requirements.txt
 ```
 ## How to use:
 
-Start the Script by running:
+Use the Script by running:
 ```
 python amogus.py
 ```
-Then paste in an Apple Music URL (artist or album)
+Provide Apple Music URL (artist or album)
 
-The Pictures get saved to the output folder.
+The Pictures get saved to the folder named `cover`
+
 ## Screenshot:
 ![Screenshot](https://user-images.githubusercontent.com/89069925/152122393-3b2b71ff-b5df-4050-94d0-61680f979ab7.png)

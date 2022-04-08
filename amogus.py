@@ -1,6 +1,9 @@
-import requests, os
-from urllib.parse import unquote, urlparse
+import os
+import argparse
+import requests
 from pathlib import PurePosixPath
+from urllib.parse import unquote, urlparse
+
 
 logo = r"""
   __ _ _ __ ___   ___   __ _ _   _ ___
@@ -10,65 +13,84 @@ logo = r"""
 repository:             __/ |Ver: 0.2.0
 github.com/R3AP3/amogus|___/           """
 
-def get_collectionids(album_id, region_code):
-    response = requests.get(f'https://itunes.apple.com/lookup?id={album_id}&country={region_code}&entity=album&limit=200&sort=recent')
+
+def get_collectionids(album_id: str, region_code: str):
+    response = requests.get('https://itunes.apple.com/' +
+                            f'lookup?id={album_id}&country={region_code}' +
+                            '&entity=album&limit=200&sort=recent')
+
     data = response.json()["results"]
+    print("Downloading Artist: " + data[0]["artistName"])
     idlist = []
-    for i in range(len(data)):
-        if i == 0:
-            print("Downloading Artist: " + data[i]["artistName"])
-        else:
-            dict_raw = data[i]
-            collection_id = dict_raw["collectionId"]
-            idlist.append(collection_id)
+
+    for i in enumerate(data):
+        idlist.append(data[i]['collectionId'])
+        # if i != 0:
+        #     idlist.append(data[i]["collectionId"])
+
     return idlist
 
-def parse_request(album_id, region_code):
-    response = requests.get(f'https://itunes.apple.com/lookup?id={album_id}&country={region_code}&entity=album')
-    details = response.json()["results"][0]
-    filename = str(details["artistId"]) + " - " + str(details["collectionId"])
-    download_status = str(details["artistName"]) + " - " + str(details["collectionName"])
-    cover_url = details["artworkUrl100"]
-    return cover_url, download_status, filename
 
-def download_picture_with_correct_extension(url, filename, download_status):
+def parse_request(album_id, region_code):
+    response = requests.get('https://itunes.apple.com/' +
+                            f'lookup?id={album_id}&country={region_code}' +
+                            '&entity=album')
+
+    data = response.json()["results"][0]
+    filename = "{} [{}]".format(
+        data['collectionNam'],
+        data['collectionName'])
+
+    print(data['artistName'], data['collectionName'])
+
+    return data["artworkUrl100"], filename
+
+
+def download_pic(url, filename):
     r = requests.get(url)
     ext = r.headers["content-type"].split("/")[1]
+
     with open(f"cover/{filename}.{ext}", "wb") as f:
         f.write(r.content)
 
-def get_source(art):
-    p = PurePosixPath(unquote(urlparse(art).path)).parts
-    if p[9] == "source":
-        url = f"http://a1.mzstatic.com/us/r30/{p[3]}/{p[4]}/{p[5]}/{p[6]}/{p[7]}/{p[8]}/{p[9]}"
-    return url
 
-def make_dir():
+def get_source(art):
+    p = PurePosixPath(
+        unquote(urlparse(art).path)).parts
+
+    if p[9] == "source":
+        return "http://a1.mzstatic.com/us/r30/" + \
+               f"{p[3]}/{p[4]}/{p[5]}/{p[6]}/{p[7]}/{p[8]}/{p[9]}"
+    else:
+        return art
+
+
+def routine(album_id, region_code):
+    cover_url, filename = parse_request(album_id, region_code)
+    download_pic(
+            get_source(cover_url), filename)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("link",
+                        help="link of album/artist")
+    url = parser.parse_args().link
+
     if not os.path.exists("cover"):
         os.makedirs("cover")
 
-def routine(album_id, region_code):
-    cover_url, download_status, filename = parse_request(album_id, region_code)
-    cover_url = get_source(cover_url)
-    download_picture_with_correct_extension(cover_url, filename, download_status)
-    print(download_status)
+    # url = input("Apple Music URL: ")
 
-def main():
-    val = input("\nApple Music URL: ")
-    if 'http' in val:
-        url_parts = PurePosixPath(unquote(urlparse(val).path)).parts
-        if url_parts[2] == "artist":
-            idlist = get_collectionids(url_parts[4], url_parts[1])
-            for i in idlist:
-                routine(i, url_parts[1])
+    if 'http' in url:
+        parts = PurePosixPath(
+                unquote(urlparse(url).path)).parts
+
+        if parts[2] == "artist":
+            for id in get_collectionids(parts[4], parts[1]):
+                routine(id, parts[1])
+
         else:
-            routine(url_parts[4], url_parts[1])
+            routine(parts[4], parts[1])
     else:
-        print("Wrong input")
-
-print(logo)
-make_dir()
-
-while True:
-    main()
-
+        print("Wrong input, no 'https' in link")
