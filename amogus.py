@@ -37,11 +37,9 @@ def parse_request(album_id, region_code):
                             '&entity=album')
 
     data = response.json()["results"][0]
-    filename = "{} [{}]".format(
-        data['collectionNam'],
-        data['collectionName'])
+    filename = f"{data['collectionName']} [{data['collectionId']}]"
 
-    print(data['artistName'], data['collectionName'])
+    print("downloading:", filename)
 
     return data["artworkUrl100"], filename
 
@@ -49,6 +47,7 @@ def parse_request(album_id, region_code):
 def download_pic(url, filename):
     r = requests.get(url)
     ext = r.headers["content-type"].split("/")[1]
+    ext = ext.replace("jpeg", "jpg")
 
     with open(f"cover/{filename}.{ext}", "wb") as f:
         f.write(r.content)
@@ -67,30 +66,86 @@ def get_source(art):
 
 def routine(album_id, region_code):
     cover_url, filename = parse_request(album_id, region_code)
-    download_pic(
-            get_source(cover_url), filename)
+    download_pic(get_source(cover_url), filename)
+
+
+def search_query_itunes_artist(query, region_code):
+    response = requests.get("https://itunes.apple.com/" +
+        f"search?term={query}&entity=musicArtist&limit=25")
+
+    data = response.json()["results"]
+
+    for i in range(len(data)):
+        print(f"[{i+1}] {data[i]['artistName']}")
+    album_id = data[int(input("\nChoose the Artist to download: "))-1]["artistId"]
+    idlist = get_collectionids(album_id, region_code)
+    for i in idlist:
+        routine(i, region_code)
+
+def search_query_itunes_album(query, region_code):
+    response = requests.get("https://itunes.apple.com/" +
+        f"search?term={query}&entity=album&limit=25")
+
+    data = response.json()["results"]
+
+    for i in range(len(data)):
+        print(f"[{i+1}] {data[i]['artistName']} - {data[i]['collectionName']}")
+    album_id = data[int(input("\nChoose the album to download: "))-1]["collectionId"]
+    print(album_id)
+
+    routine(album_id, region_code)
+
+
+def main(val):
+    if 'https://music.apple.com' in val:
+        url_parts = PurePosixPath(unquote(urlparse(val).path)).parts
+        if url_parts[2] == "artist":
+            idlist = get_collectionids(url_parts[4], url_parts[1])
+            for i in idlist:
+                routine(i, url_parts[1])
+        else:
+            routine(url_parts[4], url_parts[1])
+    else:
+        print("Wrong input")
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("link",
-                        help="link of album/artist")
-    url = parser.parse_args().link
 
     if not os.path.exists("cover"):
         os.makedirs("cover")
 
-    # url = input("Apple Music URL: ")
 
-    if 'http' in url:
-        parts = PurePosixPath(
-                unquote(urlparse(url).path)).parts
+    parser = argparse.ArgumentParser(
+        description="Downloads Album Covers as their Source File from the Itunes Store")
+    parser.add_argument("-s", "--search",
+                        dest='album_search',
+                        help="search for an album",
+                        action="store_true")
+    parser.add_argument("-a", "--artist",
+                        dest='artist_search',
+                        help="search for an artist",
+                        action="store_true")
+    parser.add_argument("-r", "--region",
+                        type=str,
+                        dest='region_code',
+                        help="specify a custom region (default is 'us', see all available region codes: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)",
+                        default="us",
+                        metavar="REGION_CODE")
+    parser.add_argument("input",
+                        type=str,
+                        help="Apple Music URL or Album/Artist name",
+                        metavar="INPUT")
 
-        if parts[2] == "artist":
-            for id in get_collectionids(parts[4], parts[1]):
-                routine(id, parts[1])
+    args = parser.parse_args()
 
+    if args.album_search == True:
+        if args.region_code == None:
+            region_code = "us"
         else:
-            routine(parts[4], parts[1])
-    else:
-        print("Wrong input, no 'https' in link")
+            region_code = args.region_code
+        if args.artist_search == False:
+            search_query_itunes_album(args.input, region_code)
+        elif args.artist_search == True:
+            search_query_itunes_artist(args.input, region_code)
+    elif args.album_search == False:
+        main(args.input)
