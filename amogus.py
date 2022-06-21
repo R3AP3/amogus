@@ -1,4 +1,4 @@
-import requests, os, argparse
+import requests, os, argparse, re
 from urllib.parse import unquote, urlparse
 from pathlib import PurePosixPath
 
