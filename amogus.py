@@ -7,7 +7,7 @@ logo = r"""
  / _` | '_ ` _ \ / _ \ / _` | | | / __|
 ( (_| | | | | | | (_) | (_| | |_| \__ \
  \__,_|_| |_| |_|\___/ \__, |\__,_|___/
-repository:             __/ |Ver: 0.3.2
+repository:             __/ |Ver: 0.3.3
 github.com/R3AP3/amogus|___/           
 """
 
@@ -53,9 +53,9 @@ def get_source(art):
     url_fixxed = art
 
     while re_loop < 3:
-        url = re.sub(string[re_loop], sub[re_loop], url_fixxed)
+        url_fixxed = re.sub(string[re_loop], sub[re_loop], url_fixxed)
         re_loop = re_loop + 1
-    return url
+    return url_fixxed
 
 def make_dir():
     if not os.path.exists("cover"):
