@@ -7,7 +7,7 @@ logo = r"""
  / _` | '_ ` _ \ / _ \ / _` | | | / __|
 ( (_| | | | | | | (_) | (_| | |_| \__ \
  \__,_|_| |_| |_|\___/ \__, |\__,_|___/
-repository:             __/ |Ver: 0.3.0
+repository:             __/ |Ver: 0.3.2
 github.com/R3AP3/amogus|___/           
 """
 
@@ -47,9 +47,14 @@ def download_picture_with_correct_extension(url, filename, download_status):
         f.write(r.content)
 
 def get_source(art):
-    p = PurePosixPath(unquote(urlparse(art).path)).parts
-    if p[9] == "source":
-        url = f"http://a1.mzstatic.com/us/r30/{p[3]}/{p[4]}/{p[5]}/{p[6]}/{p[7]}/{p[8]}/{p[9]}"
+    string = ["is\d-ssl", "image/thumb", "/100x100bb.jpg"]
+    sub = ["a1", "r40", ""]
+    re_loop = 0
+    url_fixxed = art
+
+    while re_loop < 3:
+        url = re.sub(string[re_loop], sub[re_loop], url_fixxed)
+        re_loop = re_loop + 1
     return url
 
 def make_dir():
